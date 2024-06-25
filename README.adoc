@@ -1,24 +1,24 @@
-= Testcontainers Redis
+= Testcontainers Valkey
 :linkattrs:
-:project-owner:   redis-developer
-:project-name:    testcontainers-redis
-:project-group:   com.redis
+:project-owner:   desiderantes
+:project-name:    testcontainers-valkey
+:project-group:   com.valkey
 :project-version: 2.2.2
 
 image:https://github.com/{project-owner}/{project-name}/actions/workflows/early-access.yml/badge.svg["Build Status",link="https://github.com/{project-owner}/{project-name}/actions"]
 image:https://img.shields.io/maven-central/v/{project-group}/{project-name}[Download,link="https://search.maven.org/#search|ga|1|{project-name}"]
 image:https://img.shields.io/github/license/{project-owner}/{project-name}["License",link="https://github.com/{project-owner}/{project-name}"]
 
-Testcontainers Redis is an extension of Testcontainers that supports Redis (Standalone and Cluster), Redis Modules, and Redis Enterprise containers.
+Testcontainers Valkey is an extension of Testcontainers that supports Valkey (Standalone and Cluster).
 
 == Getting Started
 
 === Gradle
 
-[source,groovy,subs="+attributes"]
+[source,kotlin,subs="+attributes"]
 ----
 dependencies {
-    testImplementation "{project-group}:{project-name}:{project-version}"
+    testImplementation("{project-group}:{project-name}:{project-version}")
 }
 ----
 
@@ -36,52 +36,25 @@ dependencies {
 
 == Usage
 
-=== Redis Example
+=== Valkey Example
 
 [source,java]
 ----
 @Testcontainers
-class RedisExampleTest {
+class ValkeyExampleTest {
 
     @Container
-    private static RedisContainer container = new RedisContainer(
-            RedisContainer.DEFAULT_IMAGE_NAME.withTag(RedisContainer.DEFAULT_TAG));
+    private static ValkeyContainer container = new ValkeyContainer(
+            ValkeyContainer.DEFAULT_IMAGE_NAME.withTag(ValkeyContainer.DEFAULT_TAG));
 
     @Test
-    void testSomethingUsingLettuce() {
-        // Retrieve the Redis URI from the container
-        String redisURI = container.getRedisURI();
-        RedisClient client = RedisClient.create(redisURI);
-        try (StatefulRedisConnection<String, String> connection = client.connect()) {
-            RedisCommands<String, String> commands = connection.sync();
-            Assertions.assertEquals("PONG", commands.ping());
-        }
-    }
-}
-----
+    void testSomethingUsingJackey() {
+        // Retrieve the Valkey URI from the container
+        String valkeyURI = container.getValkeyURI();
 
-=== Redis Stack Example
-
-[source,java]
-----
-@Testcontainers
-class RedisStackExampleTest {
-
-    @Container
-    private static RedisStackContainer container = new RedisStackContainer(
-            RedisStackContainer.DEFAULT_IMAGE_NAME.withTag(RedisStackContainer.DEFAULT_TAG));
-
-    @Test
-    void testSomethingUsingLettuceMod() {
-        // Retrieve the Redis URI from the container
-        String redisURI = container.getRedisURI();
-        RedisModulesClient client = RedisModulesClient.create(redisURI);
-        try (StatefulRedisModulesConnection<String, String> connection = client.connect()) {
-            RedisModulesCommands<String, String> commands = connection.sync();
-            commands.ftCreate("myIndex", Field.tag("myField").build());
-            IndexInfo indexInfo = RedisModulesUtils.indexInfo(commands.ftInfo("myIndex"));
-            Assertions.assertEquals(1, indexInfo.getFields().size());
-            Assertions.assertEquals("myField", indexInfo.getFields().get(0).getName());
+        try (Jedis client = new Jedis(valkeyURI)) {
+            client.sync();
+            Assertions.assertEquals("PONG", client.ping());
         }
     }
 }

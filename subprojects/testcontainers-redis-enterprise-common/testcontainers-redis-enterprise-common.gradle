@@ -1,4 +1,0 @@
-dependencies {
-    api 'org.testcontainers:testcontainers'
-    api project(':testcontainers-redis-common')
-}

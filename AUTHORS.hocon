@@ -1,0 +1,14 @@
+authors {
+  jruaux {
+    name = Julien Ruaux,
+    roles = [developer, author],
+    email = "jruax@gmail.com"
+    notes = Lead developer of the Redis based version
+  }
+  desiderantes {
+    name = Mario Daniel Ruiz Saavedra
+    roles = [developer, maintainer]
+    email = "desiderantes93@gmail.com"
+    notes = Maintainer of the Valkey based version
+  }
+}
