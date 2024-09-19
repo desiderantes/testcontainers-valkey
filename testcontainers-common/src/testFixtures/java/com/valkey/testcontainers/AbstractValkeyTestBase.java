@@ -63,10 +63,12 @@ public abstract class AbstractValkeyTestBase {
 		client.ftCreate("test", TextField.of("name"), TagField.of("id"));
 		int count = 10;
 		for (int index = 0; index < count; index++) {
-			Map<String, String> doc = new HashMap<>();
-			doc.put("name", "name " + index);
-			doc.put("id", String.valueOf(index + 1));
-			client.hset("hash:" + index, doc);
+			client.hset("hash:" + index,
+					Map.of(
+							"name", "name " + index,
+							"id", String.valueOf(index + 1)
+					)
+			);
 		}
 		SearchResult results = client.ftSearch("test", "*");
 		Assertions.assertEquals(count, results.getTotalResults());
@@ -80,8 +82,8 @@ public abstract class AbstractValkeyTestBase {
 				.labels(Map.of("sensor_id", "2", "area_id", "32"))
 		);
 		// TS.ADD temperature:3:11 1548149181 30
-		Long add1 = client.tsAdd("temperature:3:11",  1548149181, 30);
-		Assertions.assertEquals(1548149181, add1);
+		Long add1 = client.tsAdd("temperature:3:11",  1548149181L, 30);
+		Assertions.assertEquals(1548149181L, add1);
 	}
 
 	@Test

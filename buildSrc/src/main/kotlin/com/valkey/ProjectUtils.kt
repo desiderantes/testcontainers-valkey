@@ -84,9 +84,10 @@ fun Project.configureJReleaser() {
                 }
 
             )
+            version.set(BuildInfo.VERSION)
             java {
                 groupId.set(BuildInfo.GROUP)
-                version.set("17")
+                version.set(BuildInfo.JAVA_VERSION.toString())
                 multiProject.set(true)
             }
             inceptionYear.set(BuildInfo.INCEPTION_YEAR)
@@ -193,7 +194,6 @@ fun Project.getAuthorsFromFile(): List<Author> {
     ConfigFactory.parseFile(rootProject.layout.projectDirectory.file("AUTHORS.hocon").asFile).let {
         val authors = it.getConfig("authors")
         return it.getObject("authors").keys.map { key ->
-            println(key)
             Author(
                 key,
                 authors.getConfig(key).getString("name"),

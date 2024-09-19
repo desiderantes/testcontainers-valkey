@@ -1,5 +1,6 @@
 object BuildInfo {
     const val GROUP = "com.valkey"
+    const val JAVA_VERSION = 17
     const val VERSION = "1.0-SNAPSHOT"
     const val PROJECT_NAME = "testcontainers-valkey"
     const val DESCRIPTION = "Testcontainers Extension for Valkey"

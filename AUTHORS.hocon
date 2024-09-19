@@ -2,7 +2,7 @@ authors {
   jruaux {
     name = Julien Ruaux,
     roles = [developer, author],
-    email = "jruax@gmail.com"
+    email = "jruaux@gmail.com"
     notes = Lead developer of the Redis based version
   }
   desiderantes {

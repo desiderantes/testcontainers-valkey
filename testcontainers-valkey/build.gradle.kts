@@ -9,7 +9,7 @@ java {
     sourceCompatibility = JavaVersion.toVersion(libs.versions.java.get())
     targetCompatibility = JavaVersion.toVersion(libs.versions.java.get())
     toolchain {
-        languageVersion.set(JavaLanguageVersion.of(libs.versions.java.get()))
+        languageVersion.set( libs.versions.java.map(JavaLanguageVersion::of))
     }
     withSourcesJar()
     withJavadocJar()
@@ -20,6 +20,7 @@ dependencies {
     testImplementation(platform(libs.boms.junit))
     testImplementation(libs.junit)
     testImplementation(libs.testcontainers.junit)
+    testImplementation(libs.awaitility)
     testImplementation(testFixtures(project(":testcontainers-common")))
 }
 

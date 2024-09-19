@@ -18,8 +18,8 @@ public abstract class AbstractMemcachedTestBase {
 	@BeforeAll
 	public void setup() throws IOException {
 		server = getMemcachedServer();
-		if (server instanceof Startable) {
-			((Startable) server).start();
+		if (server instanceof Startable startable) {
+			startable.start();
 		}
 		client = new MemcachedClient(server.getMemcachedAddresses());
 	}
@@ -29,8 +29,8 @@ public abstract class AbstractMemcachedTestBase {
 		if (client != null) {
 			client.shutdown();
 		}
-		if (server instanceof Startable) {
-			((Startable) server).stop();
+		if (server instanceof Startable startable) {
+			startable.stop();
 		}
 	}
 

@@ -1,6 +1,7 @@
 package com.valkey.testcontainers;
 
 import io.jackey.Jedis;
+import io.jackey.JedisPool;
 import io.jackey.JedisPubSub;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
@@ -21,7 +22,6 @@ class ValkeyContainerTests {
 	private static final Logger log = LoggerFactory.getLogger(ValkeyContainerTests.class);
 
 	@Test
-	@Disabled
 	void emitsKeyspaceNotifications() {
 		try (ValkeyContainer valkey = new ValkeyContainer(
 				ValkeyContainer.DEFAULT_IMAGE_NAME.withTag(ValkeyContainer.DEFAULT_TAG))
@@ -29,25 +29,30 @@ class ValkeyContainerTests {
 			valkey.start();
 
 			ArrayList<String> messages = new ArrayList<>();
-			try (Jedis subclient = new Jedis(valkey.getValkeyURI()); Jedis client = new Jedis(valkey.getValkeyURI())) {
+
+
+			try (final JedisPool pool = new JedisPool(valkey.getValkeyURI())) {
 				log.atInfo().log("Subscribing to keyspace notifications");
 				var listener = new PubSubListener(messages);
-				ExecutorService executor = Executors.newSingleThreadExecutor();
-				executor.submit(() -> {
+				var thread = new Thread(() -> {
 					try {
-                        subclient.psubscribe(listener, "__keyspace@*__:*");
+                        pool.getResource().psubscribe(listener, "__keyspace@*__:*");
                     } catch (Exception e) {
                         log.atError().setCause(e).log("Error subscribing to keyspace notifications");
                     }
                 });
+				thread.start();
+				Jedis client = pool.getResource();
 				client.set("key1", "value");
 				client.set("key2", "value");
 				listener.punsubscribe();
-				executor.shutdown();
+				thread.join(2000);
 				log.atInfo().addKeyValue("messages", messages.size()).log("Waiting for messages");
-				Awaitility.await().atMost(Duration.ofSeconds(20)).pollInSameThread().until(() -> messages.size() == 2);
-			}
-			Assertions.assertEquals(2, messages.size());
+				Awaitility.await().atMost(Duration.ofSeconds(2)).until(() -> messages.size() == 2);
+			} catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            Assertions.assertEquals(2, messages.size());
 		}
 	}
 

@@ -9,13 +9,15 @@ public class MemcachedContainer extends GenericContainer<MemcachedContainer> imp
 
 	public static final String DEFAULT_TAG = "1.6-alpine";
 
+	private static int MEMCACHED_PORT = 11211;
+
 	public MemcachedContainer(String dockerImageName) {
 		this(DockerImageName.parse(dockerImageName));
 	}
 
 	public MemcachedContainer(final DockerImageName dockerImageName) {
 		super(dockerImageName);
-		withExposedPorts(11211);
+		withExposedPorts(MEMCACHED_PORT);
 	}
 
 	@Override
