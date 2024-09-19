@@ -16,4 +16,8 @@ public class ValkeyContainer extends AbstractValkeyContainer<ValkeyContainer> {
 		super(dockerImageName);
 	}
 
+	public ValkeyContainer() {
+		super(DEFAULT_IMAGE_NAME.withTag(DEFAULT_TAG));
+	}
+
 }

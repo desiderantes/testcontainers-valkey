@@ -10,8 +10,7 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 class ValkeyExampleTest {
 
     @Container
-    private static ValkeyContainer container = new ValkeyContainer(
-            ValkeyContainer.DEFAULT_IMAGE_NAME.withTag(ValkeyContainer.DEFAULT_TAG));
+    private static ValkeyContainer container = new ValkeyContainer();
 
     @Test
     void testSomethingUsingJackey() {

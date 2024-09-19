@@ -20,8 +20,7 @@ class ValkeyContainerTests {
 
 	@Test
 	void emitsKeyspaceNotifications() {
-		try (ValkeyContainer valkey = new ValkeyContainer(
-				ValkeyContainer.DEFAULT_IMAGE_NAME.withTag(ValkeyContainer.DEFAULT_TAG))
+		try (ValkeyContainer valkey = new ValkeyContainer()
 				.withKeyspaceNotifications()) {
 			valkey.start();
 
