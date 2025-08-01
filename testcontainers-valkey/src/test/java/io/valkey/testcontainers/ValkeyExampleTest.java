@@ -1,6 +1,6 @@
 package io.valkey.testcontainers;
 
-import io.jackey.Jedis;
+import io.valkey.Jedis;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.testcontainers.junit.jupiter.Container;

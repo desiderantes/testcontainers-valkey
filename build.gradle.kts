@@ -1,7 +1,9 @@
-import com.valkey.configureJReleaser
+import io.valkey.configureJReleaser
+import io.valkey.BuildInfo
 
 plugins {
     base
+    alias(libs.plugins.benmanes.versions)
     id(libs.plugins.jreleaser.get().pluginId)
 }
 

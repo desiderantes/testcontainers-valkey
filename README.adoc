@@ -3,7 +3,7 @@
 :project-owner:   desiderantes
 :project-name:    testcontainers-valkey
 :project-group:   com.valkey
-:project-version: 2.2.2
+:project-version: 1.0-SNAPSHOT
 
 image:https://github.com/{project-owner}/{project-name}/actions/workflows/early-access.yml/badge.svg["Build Status",link="https://github.com/{project-owner}/{project-name}/actions"]
 image:https://img.shields.io/maven-central/v/{project-group}/{project-name}[Download,link="https://search.maven.org/#search|ga|1|{project-name}"]

@@ -1,4 +1,4 @@
-import com.valkey.configurePackaging
+import io.valkey.configurePackaging
 
 plugins {
     id("java-library-distribution")
@@ -19,7 +19,9 @@ java {
 dependencies {
     api(project(":testcontainers-common"))
     testImplementation(platform(libs.boms.junit))
-    testImplementation(libs.junit)
+    testImplementation(libs.junit.jupiter)
+    testImplementation(libs.testcontainers.junit)
+    testRuntimeOnly(libs.junit.launcher)
     testImplementation(testFixtures(project(":testcontainers-common")))
 }
 

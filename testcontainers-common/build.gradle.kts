@@ -13,12 +13,13 @@ java {
 
 dependencies {
     api(libs.memcached)
-    api(libs.jackey)
+    api(libs.valkey.java)
+    api(platform(libs.boms.testcontainers))
     api(libs.testcontainers.all)
     api(libs.slf4j.api)
     testFixturesImplementation(platform(libs.boms.junit))
     testFixturesImplementation(libs.testcontainers.junit)
-    testFixturesImplementation(libs.junit)
+    testFixturesImplementation(libs.junit.jupiter)
     testFixturesApi(libs.slf4j.simple)
 
     //testFixturesImplementation(libs.memcached)

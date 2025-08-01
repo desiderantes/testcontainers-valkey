@@ -21,7 +21,7 @@ abstract class AbstractValkeyContainer<C extends AbstractValkeyContainer<C>> ext
 		waitingFor(Wait.forLogMessage(".*Ready to accept connections.*\\n", 1));
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({"unchecked", "resource"})
 	public C withKeyspaceNotifications() {
 		withCopyFileToContainer(MountableFile.forClasspathResource("valkey-keyspace-notifications.conf"),
 				"/data/valkey.conf");

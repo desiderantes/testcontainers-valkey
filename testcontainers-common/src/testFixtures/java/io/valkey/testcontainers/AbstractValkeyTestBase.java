@@ -1,11 +1,11 @@
 package io.valkey.testcontainers;
 
 
-import io.jackey.*;
-import io.jackey.search.SearchResult;
-import io.jackey.search.schemafields.TagField;
-import io.jackey.search.schemafields.TextField;
-import io.jackey.timeseries.TSCreateParams;
+import io.valkey.*;
+import io.valkey.search.SearchResult;
+import io.valkey.search.schemafields.TagField;
+import io.valkey.search.schemafields.TextField;
+import io.valkey.timeseries.TSCreateParams;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
 import org.testcontainers.lifecycle.Startable;

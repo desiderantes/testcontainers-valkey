@@ -84,10 +84,13 @@ fun Project.configureJReleaser() {
 
             )
             version.set(BuildInfo.VERSION)
-            java {
-                groupId.set(BuildInfo.GROUP)
-                version.set(BuildInfo.JAVA_VERSION.toString())
-                multiProject.set(true)
+
+            languages {
+                java {
+                    groupId.set(BuildInfo.GROUP)
+                    version.set(BuildInfo.JAVA_VERSION.toString())
+                    multiProject.set(true)
+                }
             }
             inceptionYear.set(BuildInfo.INCEPTION_YEAR)
             tags.set(
